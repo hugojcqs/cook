@@ -1,3 +1,7 @@
+# Fork disclaimer
+
+Do not use, vibe coded stuff for personal use
+
 <img src="assets/head.png">
 
 # COOK
