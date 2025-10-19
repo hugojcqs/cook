@@ -2,6 +2,8 @@ package cook
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"strings"
 
 	"github.com/glitchedgitz/cook/v2/pkg/config"
@@ -48,18 +50,43 @@ func (cook *COOK) Print() {
 		return
 	}
 
+	var outputLines []string
+	
 	if len(cook.MethodsForAll) > 0 {
 		tmp := []string{}
 
 		for _, meth := range strings.Split(cook.MethodsForAll, ",") {
 			cook.ApplyMethods(cook.Final, parse.SplitMethods(meth), &tmp)
 		}
-		for _, v := range tmp {
+		outputLines = tmp
+	} else {
+		outputLines = cook.Final
+	}
+	
+	// Write to file if OutputFile is specified
+	if cook.OutputFile != "" {
+		cook.WriteToFile(outputLines)
+	}
+	
+	// Write to stdout if no file specified or if OutputBoth is true
+	if cook.OutputFile == "" || cook.OutputBoth {
+		for _, v := range outputLines {
 			fmt.Println(v)
 		}
-	} else {
-		for _, v := range cook.Final {
-			fmt.Println(v)
+	}
+}
+
+// WriteToFile writes the output lines to the specified file
+func (cook *COOK) WriteToFile(lines []string) {
+	f, err := os.OpenFile(cook.OutputFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatalf("Error opening output file: %v", err)
+	}
+	defer f.Close()
+	
+	for _, line := range lines {
+		if _, err := f.WriteString(line + "\n"); err != nil {
+			log.Fatalf("Error writing to output file: %v", err)
 		}
 	}
 }

@@ -19,4 +19,6 @@ type COOK struct {
 	Final         []string
 	TotalCols     int
 	PrintResult   bool
+	OutputFile    string // Output file path
+	OutputBoth    bool   // Output to both file and stdout
 }

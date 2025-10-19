@@ -90,6 +90,10 @@ func flagsHelp() {
 		"-m,     -method            Apply methods to final output",
 		"-h,     -help              Help",
 		"        -min               Minimum no of columns to print",
+		"-o,     -output            Write output to file instead of stdout",
+		"                           	cook wordlist1 wordlist2 -o output.txt",
+		"-ob,    -output-both       Write output to both file and stdout",
+		"                           	cook wordlist1 wordlist2 -o output.txt -ob",
 	)
 }
 

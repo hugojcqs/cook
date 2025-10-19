@@ -30,6 +30,8 @@ var (
 	appendParam   string
 	showConfig    bool
 	reConfigure   bool
+	outputFile    string
+	outputBoth    bool
 )
 
 func main() {
@@ -47,6 +49,8 @@ func main() {
 	showConfig = parseFlags.Boolean("-conf", "-config")
 	reConfigure = parseFlags.Boolean("-reconfigure", "-reconf")
 	configPath = parseFlags.String("-config-path", "-config-path")
+	outputFile = parseFlags.String("-o", "-output")
+	outputBoth = parseFlags.Boolean("-ob", "-output-both")
 	parseFlags.Parse()
 
 	if !verbose {
@@ -80,6 +84,8 @@ func main() {
 		MethodParam:   methodParam,
 		MethodsForAll: methodsForAll,
 		PrintResult:   true,
+		OutputFile:    outputFile,
+		OutputBoth:    outputBoth,
 	})
 
 	if showCol {
