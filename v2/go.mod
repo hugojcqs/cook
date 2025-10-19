@@ -1,6 +1,6 @@
 module github.com/glitchedgitz/cook/v2
 
-go 1.17
+go 1.25.3
 
 require (
 	github.com/adrg/strutil v0.2.3

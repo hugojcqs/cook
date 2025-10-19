@@ -1,0 +1,41 @@
+version: '3'
+
+vars:
+  BINARY_NAME: cook
+  MAIN_PACKAGE: ./v2/cmd/cook
+  BUILD_DIR: ./build
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  tidy:
+    desc: Tidy up go.mod and go.sum
+    dir: v2
+    cmds:
+      - go mod tidy
+
+  test:
+    desc: Run tests
+    dir: v2
+    cmds:
+      - go test -v ./...
+
+  build:
+    desc: Build the binary
+    cmds:
+      - mkdir -p {{.BUILD_DIR}}
+      - cd v2 && go build -o ../{{.BUILD_DIR}}/{{.BINARY_NAME}} ./cmd/cook
+
+  install:
+    desc: Install the binary to $GOPATH/bin
+    dir: v2
+    cmds:
+      - go install ./cmd/cook
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rm -rf {{.BUILD_DIR}}

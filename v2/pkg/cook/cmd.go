@@ -141,7 +141,7 @@ func (cook *COOK) Show(set string) {
 	}
 
 	if vals, exists := cook.Config.Ingredients[set]; exists {
-		fmt.Printf("\n" + util.Blue + strings.ToUpper(set) + util.Reset + "\n\n")
+		fmt.Printf("\n%s%s%s\n\n", util.Blue, strings.ToUpper(set), util.Reset)
 
 		keys := []string{}
 		for k := range vals {

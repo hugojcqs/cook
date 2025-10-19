@@ -45,7 +45,7 @@ func searchMode(cmds []string) {
 					for i, file := range v {
 
 						// fmt.Println(link)
-						links += fmt.Sprintf(" " + util.TerminalLink(file, fmt.Sprintf("%d", i+1), util.Blue))
+						links += fmt.Sprintf(" %s", util.TerminalLink(file, fmt.Sprintf("%d", i+1), util.Blue))
 					}
 
 					// because of color encoding using %-70s was not working right

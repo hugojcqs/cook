@@ -78,6 +78,10 @@ func (p *CookParse) UserDefinedFlags() map[string]string {
 	tmp = append(tmp, p.Args...)
 
 	for _, cmd := range tmp {
+		// Skip test flags to avoid os.Exit during tests
+		if strings.HasPrefix(cmd, "-test.") {
+			continue
+		}
 
 		if len(cmd) > 1 && strings.Count(cmd, "-") == 1 && strings.HasPrefix(cmd, "-") {
 			value := p.String(cmd, cmd)
