@@ -16,6 +16,9 @@ func printWordlistNames(k, search string) string {
 }
 
 func searchMode(cmds []string) {
+	if len(cmds) < 1 {
+		log.Fatalln("Usage: cook search [keyword]")
+	}
 	found := false
 	search := cmds[0]
 	// convert the below fucntion to as data to map
@@ -83,15 +86,21 @@ func searchMode(cmds []string) {
 }
 
 func showMode(cmds []string) {
+	if len(cmds) < 1 {
+		log.Fatalln("Usage: cook show [keyword]")
+	}
 	set := cmds[0]
 	COOK.Show(set)
 }
 
 func addMode(cmds []string) {
 	if len(cmds) != 3 {
-		log.Println("Usage: cook add [keyword]=[values separated by comma] in [category]")
+		log.Fatalln("Usage: cook add [keyword]=[values separated by comma] in [category]")
 	}
 	k := strings.SplitN(cmds[0], "=", 2)
+	if len(k) != 2 {
+		log.Fatalln("Usage: cook add [keyword]=[values separated by comma] in [category]\nError: Missing '=' in keyword=values format")
+	}
 	keyword := k[0]
 	values := parse.SplitValues(k[1])
 	category := cmds[2]
@@ -104,14 +113,19 @@ func cleanMode(cmds []string) {
 }
 
 func infoMode(cmds []string) {
+	if len(cmds) < 1 {
+		log.Fatalln("Usage: cook info [keyword]")
+	}
 	set := cmds[0]
 	COOK.Info(set)
 }
 
 func updateMode(cmds []string) {
+	if len(cmds) < 1 {
+		log.Fatalln("Usage: cook update [config-name]")
+	}
 	f := cmds[0]
 	COOK.Update(f)
-
 }
 
 func deleteMode(cmds []string) {
